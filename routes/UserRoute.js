@@ -1,4 +1,4 @@
-const Firestore = require("@google-cloud/firestore");
+const Firebase = require("../service/FirebaseService");
 
 const db = new Firestore({
   projectId: "refurb-f5219",
@@ -8,7 +8,7 @@ const express = require("express");
 const router = express.Router();
 
 router.post("/user", async (req, res) => {
-  const userRef = await db.collection("users").doc(req.body.uid);
+  const userRef = await Firebase.getDB().collection("users").doc(req.body.uid);
   const user = await userRef.get();
   if (!user.exists) {
     await userRef.set({
@@ -22,7 +22,7 @@ router.post("/user", async (req, res) => {
 
 router.get("/user/:userId/orders", async (req, res) => {
   let allOrdersData = [];
-  const userRef = await db
+  const userRef = await Firebase.getDB()
     .collection("users")
     .doc(req.params.userId)
     .collection("order")
@@ -42,13 +42,13 @@ router.get("/user/:userId/orders", async (req, res) => {
 router.get("/user/:userId/cart", async (req, res) => {
   const userId = req.params.userId;
   //check if user exists
-  const user = await db.collection("users").doc(userId).get();
+  const user = await Firebase.getDB().collection("users").doc(userId).get();
   if (!user.data()) {
     return res.status(400).send({ error: "Invalid request" });
   }
   console.log("************GET USER CART************ ");
   try {
-    const currentCart = await db
+    const currentCart = await Firebase.getDB()
       .collection("users")
       .doc(userId)
       .collection("cart")

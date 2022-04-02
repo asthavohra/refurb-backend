@@ -30,7 +30,7 @@ router.get("/products/search", async (req, res) => {
   }
   console.log("*************SEARCH PRODUCT*************", name);
   const searchTerm = name.split(" ");
-  const searchedProducts = await db
+  const searchedProducts = await Firebase.getDB()
     .collection("products")
     .where("search", "array-contains-any", searchTerm)
     .get();

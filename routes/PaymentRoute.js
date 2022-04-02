@@ -1,7 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const filesystem = require("fs");
-const stripeFile = filesystem.readFileSync("./stripe.json");
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 
 const stripe = require("stripe")(stripeSecretKey);

@@ -1,17 +1,16 @@
-const Firestore = require("@google-cloud/firestore");
 const express = require("express");
-const db = new Firestore({
-  projectId: "refurb-f5219",
-  keyFilename: "./firebase.json",
-});
 const router = express.Router();
+const Firebase = require("../service/FirebaseService");
 
 router.post("/cart/add", async (req, res) => {
   if (!req.body || !req.body.item || !req.body.userId) {
     return res.status(400).send({ error: "Invalid request" });
   }
   //check if user exists
-  const user = await db.collection("users").doc(req.body.userId).get();
+  const user = await Firebase.getDB()
+    .collection("users")
+    .doc(req.body.userId)
+    .get();
   if (!user.data()) {
     return res.status(400).send({ error: "Invalid request" });
   }
@@ -24,7 +23,7 @@ router.post("/cart/add", async (req, res) => {
     rating: item.rating,
     count: 1,
   };
-  const currentCart = await db
+  const currentCart = await Firebase.getDB()
     .collection("users")
     .doc(req.body.userId)
     .collection("cart")
@@ -33,7 +32,7 @@ router.post("/cart/add", async (req, res) => {
   //check if current cart has any item or not
   if (!currentCart.data()) {
     //add the item as it is
-    const response = await db
+    const response = await Firebase.getDB()
       .collection("users")
       .doc(req.body.userId)
       .collection("cart")
@@ -57,7 +56,7 @@ router.post("/cart/add", async (req, res) => {
     } else {
       existingItems.items.push(cartItem);
     }
-    await db
+    await Firebase.getDB()
       .collection("users")
       .doc(req.body.userId)
       .collection("cart")
@@ -75,13 +74,16 @@ router.delete("/cart/item", async (req, res) => {
     return res.status(400).send({ error: "Invalid request" });
   }
   //check if user exists
-  const user = await db.collection("users").doc(req.body.userId).get();
+  const user = await Firebase.getDB()
+    .collection("users")
+    .doc(req.body.userId)
+    .get();
   if (!user.data()) {
     return res.status(400).send({ error: "Invalid request" });
   }
   const itemId = req.body.itemId;
 
-  const currentCart = await db
+  const currentCart = await Firebase.getDB()
     .collection("users")
     .doc(req.body.userId)
     .collection("cart")
@@ -103,7 +105,7 @@ router.delete("/cart/item", async (req, res) => {
       );
       existingItem.count--;
       existingItems.items[existingItemIndex] = existingItem;
-      await db
+      await Firebase.getDB()
         .collection("users")
         .doc(req.body.userId)
         .collection("cart")

@@ -1,13 +1,9 @@
-const Firestore = require("@google-cloud/firestore");
 const express = require("express");
-const db = new Firestore({
-  projectId: "refurb-f5219",
-  keyFilename: "./firebase.json",
-});
 const router = express.Router();
+const Firebase = require("../service/FirebaseService");
 
 router.post("/order", async (req, res) => {
-  const orderRef = await db
+  const orderRef = await Firebase.getDB()
     .collection("users")
     .doc(req.body.userId)
     .collection("order")
