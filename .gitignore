@@ -4,6 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
+/local_setup.txt
+.vscode
 
 /firebase.json
 /stripe.json

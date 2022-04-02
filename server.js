@@ -4,9 +4,10 @@ const express = require("express");
 const dotenv = require("dotenv");
 
 dotenv.config({ path: "./config/config.env" });
-var dir = path.join(__dirname, "public");
+const dir = path.join(__dirname, "public");
 app.use(express.static(dir));
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server is working on http://localhost:${process.env.PORT}`);
+const port = process.env.PORT || 8080;
+app.listen(port, () => {
+  console.log(`Server is working on http://localhost:${port}`);
 });

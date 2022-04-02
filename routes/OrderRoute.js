@@ -2,7 +2,7 @@ const Firestore = require("@google-cloud/firestore");
 const express = require("express");
 const db = new Firestore({
   projectId: "refurb-f5219",
-  keyFilename: "../firebase.json",
+  keyFilename: "./firebase.json",
 });
 const router = express.Router();
 

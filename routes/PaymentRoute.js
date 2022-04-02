@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const filesystem = require("fs");
 const stripeFile = filesystem.readFileSync("./stripe.json");
-const stripeData = JSON.parse(stripeFile);
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 
-const stripe = require("stripe")(stripeData.secretKey);
+const stripe = require("stripe")(stripeSecretKey);
 
 router.post("/payment", async (request, response) => {
   const total = request.body.total;

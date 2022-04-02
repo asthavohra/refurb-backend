@@ -1,16 +1,10 @@
-const Firestore = require("@google-cloud/firestore");
-
-const db = new Firestore({
-  projectId: "refurb-f5219",
-  keyFilename: "../firebase.json",
-});
-
 const express = require("express");
+const Firebase = require("../service/FirebaseService");
 
 const router = express.Router();
 
 router.get("/products", async (req, res) => {
-  const allProducts = await db.collection("products").get();
+  const allProducts = await Firebase.getDB().collection("products").get();
   let products = [];
   try {
     console.log("*************GET ALL PRODUCT*************");
