@@ -1,9 +1,4 @@
 const Firebase = require("../service/FirebaseService");
-
-const db = new Firestore({
-  projectId: "refurb-f5219",
-  keyFilename: "./firebase.json",
-});
 const express = require("express");
 const router = express.Router();
 
