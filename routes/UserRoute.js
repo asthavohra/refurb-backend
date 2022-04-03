@@ -21,7 +21,6 @@ router.get("/user/:userId/orders", async (req, res) => {
     .collection("users")
     .doc(req.params.userId)
     .collection("order")
-    .orderBy("createdAt", "desc")
     .get();
 
   userRef.docs.map((order) => {
@@ -31,7 +30,7 @@ router.get("/user/:userId/orders", async (req, res) => {
     };
     allOrdersData.push(orderData);
   });
-  res.status(200).send(allOrdersData);
+  res.status(200).send(allOrdersData.reverse());
 });
 
 router.get("/user/:userId/cart", async (req, res) => {
