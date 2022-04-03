@@ -74,7 +74,11 @@
    API_KEY='9999'
    ```
 
+Alternatively you can create `.env` in the root directory of this project with all the env variables. It should look like this
+![sample env file](./screenshots/env.png)
+
 6. To start the server run
-   ```
-   npm start
-   ```
+
+```
+npm start
+```

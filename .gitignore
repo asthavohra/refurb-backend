@@ -6,7 +6,7 @@
 .pnp.js
 /local_setup.txt
 .vscode
-
+/.env
 /firebase.json
 /stripe.json
 # testing

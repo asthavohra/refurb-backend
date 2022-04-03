@@ -3,7 +3,7 @@ const path = require("path");
 const express = require("express");
 const dotenv = require("dotenv");
 
-dotenv.config({ path: "./config/config.env" });
+dotenv.config({ path: ".env" });
 const dir = path.join(__dirname, "public");
 app.use(express.static(dir));
 
