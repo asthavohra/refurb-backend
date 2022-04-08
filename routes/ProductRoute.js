@@ -2,7 +2,8 @@ const express = require("express");
 const Firebase = require("../service/FirebaseService");
 
 const router = express.Router();
-
+//returns all products on homepage
+//takes in firbase db,returns products,ran forloop and add id to it
 router.get("/products", async (req, res) => {
   const allProducts = await Firebase.getDB().collection("products").get();
   let products = [];
